@@ -9,4 +9,4 @@ class Address:
 
     def __str__(self):
         return f'{self.index}, {self.city}, {self.street}, \
-{self.home}, {self.flat}'
+{self.home} - {self.flat}'
