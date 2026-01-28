@@ -1,4 +1,4 @@
-from user import User
+from Lesson_03.user import User
 
 
 class User:
