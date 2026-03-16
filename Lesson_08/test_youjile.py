@@ -1,11 +1,12 @@
 import requests
 from config import TOKEN
 
-TOKEN
 
 URL = 'https://ru.yougile.com'
 
 HEADERS = {'Authorization': f"Bearer {TOKEN}", 'Content-Type': 'application/json'}
+
+USER_ID = "4be9cbc1-7706-41a0-a9e1-0f1240006894"
 
 
 def test_create_project_positive():
@@ -13,7 +14,8 @@ def test_create_project_positive():
     '''Позитивный тест создания проекта'''
 
     body = {"title": "Проект урок 8.1",
-            "users": {"4be9cbc1-7706-41a0-a9e1-0f1240006894": "admin"}}
+            "users": {USER_ID: "admin"}}
+
     responce = requests.post(url=f'{URL}/api-v2/projects', json=body, headers=HEADERS)
 
     assert responce.status_code == 201
@@ -34,7 +36,7 @@ def test_create_project_negative():
     '''Негативный тест создания проекта'''
 
     body = {"title": "",
-            "users": {"4be9cbc1-7706-41a0-a9e1-0f1240006894": "admin"}}
+            "users": {USER_ID: "admin"}}
     responce = requests.post(url=f'{URL}/api-v2/projects', json=body, headers=HEADERS)
 
     assert responce.status_code == 400
@@ -45,7 +47,7 @@ def test_edit_project_positive():
     '''Позитивный тест редактирования проекта'''
 
     body = {"title": "Проект урок 8.2",
-            "users": {"4be9cbc1-7706-41a0-a9e1-0f1240006894": "admin"}}
+            "users": {USER_ID: "admin"}}
     responce = requests.post(url=f'{URL}/api-v2/projects', json=body, headers=HEADERS)
 
     assert responce.status_code == 201
@@ -55,7 +57,7 @@ def test_edit_project_positive():
     id = responce_body['id']
 
     body = {"title": "Знакомство с библиотекой Requests",
-            "users": {"4be9cbc1-7706-41a0-a9e1-0f1240006894": "admin"}}
+            "users": {USER_ID: "admin"}}
 
     responce = requests.put(url=f'{URL}/api-v2/projects/{id}', json=body, headers=HEADERS)
 
@@ -77,7 +79,7 @@ def test_edit_project_negative():
     '''Негативный тест редактирования проекта'''
 
     body = {"title": "Проект урок 8.3",
-            "users": {"4be9cbc1-7706-41a0-a9e1-0f1240006894": "admin"}}
+            "users": {USER_ID: "admin"}}
     responce = requests.post(url=f'{URL}/api-v2/projects', json=body, headers=HEADERS)
 
     assert responce.status_code == 201
@@ -87,11 +89,9 @@ def test_edit_project_negative():
     id = responce_body['id']
 
     body = {"title": "",
-            "users": {"4be9cbc1-7706-41a0-a9e1-0f1240006894": "admin"}}
+            "users": {USER_ID: "admin"}}
 
     responce = requests.put(url=f'{URL}/api-v2/projects/{id}', json=body, headers=HEADERS)
-
-    print(responce)
 
     assert responce.status_code == 400
 
@@ -101,7 +101,7 @@ def test_get_project_with_id_positive():
     '''Позитивный тест получения проекта по id'''
 
     body = {"title": "Проект урок 8.4",
-            "users": {"4be9cbc1-7706-41a0-a9e1-0f1240006894": "admin"}}
+            "users": {USER_ID: "admin"}}
 
     responce = requests.post(url=f'{URL}/api-v2/projects', json=body, headers=HEADERS)
 
